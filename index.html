@@ -1,436 +1,476 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Annora Zhu Portfolio - Home</title>
-  <style>
-    /* Reset & Fonts */
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: black;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
+  <head>
+    <meta charset="UTF-8">
+    <title>Annora Zhu Portfolio - Home</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: black;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
 
-    /* Header Styles */
-    header {
-      background-color: #000000;
-      padding: 20px;
-    }
-    header nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    header nav ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-    }
-    header nav ul li {
-      margin-right: 20px;
-    }
-    header nav ul li a {
-      text-decoration: none;
-      color: #FFFFFF;
-      font-weight: bold;
-    }
-    header nav ul li a:hover,
-    header nav ul li a:active {
-      color: #007BFF;
-    }
-    header h1 {
-      color: white;
-      margin: 0;
-      font-size: 1.4em;
-      font-family: Arial, sans-serif;
-    }
-    .social-icons a {
-      text-decoration: none;
-      margin-left: 10px;
-      font-size: 1.2em;
-    }
+      header {
+        background-color: #000;
+        padding: 20px;
+      }
 
-    main {
-      background-color: black;
-      text-align: center;
-    }
+      header nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+      }
 
-    /* ABOUT section */
-    about p {
-      color: white;
-      line-height: 20px;
-      font-size: 20px;
-    }
-    about h2 {
-      color: white;
-      line-height: 15px;
-      font-size: 60px;
-    }
-    about img {
-      width: 60%;
-      height: auto;
-      border-radius: 8px;
-      margin: 20px 0px;
-    }
+      header nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+      }
 
-    .divider-section {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background-color: black;
-      padding: 20px 0;
-      color: white;
-    }
-    .divider-text {
-      font-size: 1.2rem;
-      font-weight: bold;
-      text-align: center;
-      flex: 1;
-    }
-    .divider-image {
-      flex: 2;
-      max-width: 100%;
-      height: auto;
-    }
+      header nav ul li {
+        margin-right: 20px;
+      }
 
-    /* Education Section */
-    .education {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 60px 20px 40px;
-    }
-    .education .left-content {
-      width: 50%;
-      text-align: left;
-    }
-    .education .left-content ul {
-      color: white;
-      font-size: 20px;
-      list-style-type: disc;
-      margin-left: 40px;
-    }
-    .education .right-content {
-      width: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .education .right-content img {
-      width: 30%;
-      height: auto;
-      border-radius: 8px;
-    }
+      header nav ul li a {
+        text-decoration: none;
+        color: #fff;
+        font-weight: bold;
+      }
 
-    /* Personal Identity */
-    .personal-identity {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 40px;
-      color: white;
-      text-align: left;
-    }
-    .personal-identity .left-content,
-    .personal-identity .right-content {
-      padding: 20px 50px;
-      width: 50%;
-    }
-    .personal-identity .right-content p {
-      font-size: 20px;
-      line-height: 1.5;
-    }
-    .personal-identity h2 {
-      font-size: 3em;
-      margin-bottom: 20px;
-    }
-    .quote {
-      font-style: italic;
-      font-size: 1.2em;
-      margin-bottom: 5px;
-    }
-    .author {
-      margin-bottom: 30px;
-      font-size: 1em;
-      opacity: 0.8;
-    }
+      header nav ul li a:hover {
+        color: #007BFF;
+      }
 
-    /* Skills Section */
-    .skills-section {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      background-color: black;
-      color: white;
-      padding: 40px;
-    }
-    .skills-left, .skills-right {
-      padding: 50px;
-    }
-    .skills-left {
-      width: 40%;
-      text-align: left;
-    }
-    .skills-left h2 {
-      font-size: 2em;
-      margin-bottom: 20px;
-    }
-    .adobe-icons {
-      display: flex;
-      gap: 20px;
-    }
-    .adobe-icons img {
-      width: 60px;
-      height: auto;
-    }
-    .skills-right {
-      width: 50%;
-      text-align: left;
-    }
-    .skills-right details {
-      margin-bottom: 15px;
-      border-bottom: 1px solid #444;
-      padding-bottom: 10px;
-    }
-    .skills-right summary {
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 1.1em;
-    }
-    .skills-right summary::after {
-      content: " ▼";
-      font-size: 0.8em;
-      margin-left: 5px;
-    }
-    .skills-right details[open] summary::after {
-      content: " ▲";
-    }
-    .skills-right details p {
-      margin-top: 10px;
-      line-height: 1.5;
-    }
+      header h1 {
+        color: white;
+        margin: 0;
+        font-size: 1.4em;
+      }
 
-    /* Work Experience Timeline */
-    .work-experience {
-      background-color: black;
-      color: white;
-      padding: 60px 40px;
-      text-align: center;
-    }
-    .work-experience h2 {
-      font-size: 2em;
-      margin-bottom: 30px;
-      text-align: center;
-    }
-    .work-experience .job {
-      margin-bottom: 40px;
-    }
-    .work-experience .job h3 {
-      font-size: 1.2em;
-      margin-bottom: 10px;
-    }
-    .work-experience .job .date {
-      font-size: 0.8em;
-      color: #aaa;
-      margin-left: 10px;
-      font-weight: normal;
-    }
-    .work-experience ul {
-      list-style-type: disc;
-      margin-left: 25px;
-      font-size: 1em;
-      line-height: 1.6;
-    }
+      .social-icons a {
+        text-decoration: none;
+        margin-left: 10px;
+        font-size: 1.2em;
+      }
 
-    /* Footer */
-    footer {
-      background-color: black;
-      padding: 20px;
-      text-align: center;
-    }
-    footer nav ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: inline-flex;
-    }
-    footer nav ul li {
-      margin: 0 30px;
-    }
-    footer nav ul li a {
-      text-decoration: none;
-      color: #FFFFFF;
-    }
-    footer nav ul li a:hover {
-      color: #007BFF;
-    }
-    footer p {
-      margin: 10px 0;
-      font-size: 0.9em;
-      color: #FFFFFF;
-    }
-    footer .social-icons a {
-      text-decoration: none;
-      margin: 0 5px;
-      font-size: 1.2em;
-    }
-  </style>
-</head>
-<body>
+      main {
+        background-color: black;
+        text-align: center;
+      }
 
-  <!-- Header -->
-  <header>
-    <nav>
-      <ul>
-        <li><a href="index.html">HOME</a></li>
-        <li><a href="https://y65zhu.github.io/ProjectsPage/">PROJECTS</a></li>
-        <li><a href="gallery.html">GALLERY</a></li>
-        <li><a href="https://y65zhu.github.io/contact/">CONTACT</a></li>
-      </ul>
-      <h1>Annora Zhu Portfolio</h1>
+      about p {
+        color: white;
+        line-height: 20px;
+        font-size: 20px;
+      }
+
+      about h2 {
+        color: white;
+        line-height: 15px;
+        font-size: 60px;
+      }
+
+      about img {
+        width: 60%;
+        height: auto;
+        border-radius: 8px;
+        margin: 20px 0;
+      }
+
+      .divider-section {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: black;
+        padding: 20px 0;
+        color: white;
+      }
+
+      .divider-text {
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-align: center;
+        flex: 1;
+      }
+
+      .divider-text:first-child {
+        margin-left: 20px;
+      }
+
+      .divider-text:last-child {
+        margin-right: 20px;
+      }
+
+      .divider-image {
+        flex: 2;
+        max-width: 100%;
+        height: auto;
+      }
+
+      .education {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 60px 20px 40px;
+      }
+
+      .education .left-content {
+        width: 50%;
+        text-align: left;
+      }
+
+      .education .left-content ul {
+        color: white;
+        font-size: 20px;
+        list-style-type: disc;
+        margin-left: 40px;
+      }
+
+      .education .right-content {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .education .right-content img {
+        width: 30%;
+        height: auto;
+        border-radius: 8px;
+      }
+
+      .personal-identity {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 40px;
+        color: white;
+        text-align: left;
+      }
+
+      .personal-identity .left-content,
+      .personal-identity .right-content {
+        padding: 20px 50px;
+        width: 50%;
+      }
+
+      .personal-identity .right-content p {
+        font-size: 20px;
+        line-height: 1.5;
+      }
+
+      .personal-identity h2 {
+        font-size: 3em;
+        margin-bottom: 20px;
+      }
+
+      .quote {
+        font-style: italic;
+        font-size: 1.2em;
+        margin-bottom: 5px;
+      }
+
+      .author {
+        margin-bottom: 30px;
+        font-size: 1em;
+        opacity: 0.8;
+      }
+
+      .skills-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        background-color: black;
+        color: white;
+        padding: 40px;
+      }
+
+      .skills-left,
+      .skills-right {
+        padding: 50px;
+      }
+
+      .skills-left {
+        width: 40%;
+        text-align: left;
+      }
+
+      .skills-left h2 {
+        font-size: 2em;
+        margin-bottom: 20px;
+      }
+
+      .adobe-icons {
+        display: flex;
+        gap: 20px;
+      }
+
+      .adobe-icons img {
+        width: 60px;
+        height: auto;
+      }
+
+      .skills-right {
+        width: 50%;
+        text-align: left;
+      }
+
+      .skills-right details {
+        margin-bottom: 15px;
+        border-bottom: 1px solid #444;
+        padding-bottom: 10px;
+      }
+
+      .skills-right summary {
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 1.1em;
+      }
+
+      .skills-right summary::after {
+        content: " ▼";
+        font-size: 0.8em;
+        margin-left: 5px;
+      }
+
+      .skills-right details[open] summary::after {
+        content: " ▲";
+      }
+
+      .skills-right details p {
+        margin-top: 10px;
+        line-height: 1.5;
+      }
+
+      .work-experience {
+        background-color: black;
+        color: white;
+        padding: 60px 40px;
+        text-align: center;
+      }
+
+      .work-experience h2 {
+        font-size: 2em;
+        margin-bottom: 30px;
+        text-align: center;
+      }
+
+      .work-experience .job {
+        margin-bottom: 40px;
+      }
+
+      .work-experience .job h3 {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+      }
+
+      .work-experience .job .date {
+        font-size: 0.8em;
+        color: #aaa;
+        margin-left: 10px;
+        font-weight: normal;
+      }
+
+      .work-experience ul {
+        list-style-type: disc;
+        font-size: 1em;
+        line-height: 1.6;
+        text-align: center;
+        display: inline-block;
+        margin: 0 auto;
+      }
+
+      }
+
+      footer {
+        background-color: black;
+        padding: 20px;
+        text-align: center;
+      }
+
+      footer nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: inline-flex;
+      }
+
+      footer nav ul li {
+        margin: 0 30px;
+      }
+
+      footer nav ul li a {
+        text-decoration: none;
+        color: #fff;
+      }
+
+      footer nav ul li a:hover {
+        color: #007BFF;
+      }
+
+      footer p {
+        margin: 10px 0;
+        font-size: 0.9em;
+        color: white;
+      }
+
+      footer .social-icons a {
+        text-decoration: none;
+        margin: 0 5px;
+        font-size: 1.2em;
+      }
+    </style>
+  </head>
+  <body>
+
+    <header>
+      <nav>
+        <ul>
+          <li><a href="index.html">HOME</a></li>
+          <li><a href="https://y65zhu.github.io/ProjectsPage/">PROJECTS</a></li>
+          <li><a href="gallery.html">GALLERY</a></li>
+          <li><a href="https://y65zhu.github.io/contact/">CONTACT</a></li>
+        </ul>
+        <h1>Annora Zhu Portfolio</h1>
+        <div class="social-icons">
+          <a href="https://www.linkedin.com/in/annora-zhu-1355352b9" target="_blank">📘</a>
+          <a href="https://www.instagram.com/zz_annora" target="_blank">📸</a>
+          <a href="mailto:y65zhu@uwaterloo.ca">✉️</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <about>
+        <img src="WechatIMG935.jpg" alt="self portrait">
+        <p>ABOUT ME</p>
+        <h2>Photographer</h2>
+        <h2>Graphic Designer</h2>
+        <h2>Marketing Specialist</h2>
+      </about>
+
+      <section class="divider-section">
+        <span class="divider-text">ANNORA ZHU</span>
+        <img src="wavy-line.png" alt="Wavy line" class="divider-image" />
+        <span class="divider-text">EDUCATION</span>
+      </section>
+
+      <section class="education">
+        <div class="left-content">
+          <ul>
+            <li>OSSD</li>
+            <li>Bachelor of Global Business and Digital Arts</li>
+          </ul>
+        </div>
+        <div class="right-content">
+          <img src="https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/University_of_Waterloo_seal.svg/250px-University_of_Waterloo_seal.svg.png" alt="University Image">
+        </div>
+      </section>
+
+      <section class="personal-identity">
+        <div class="left-content">
+          <h2>Personal Identity</h2>
+          <p class="quote">“The best preparation for tomorrow is doing your best today.”</p>
+          <p class="author">— H. Jackson Brown, Jr.</p>
+        </div>
+        <div class="right-content">
+          <p>I do 3 things—photographing, marketing, and designing products that improve life.</p>
+          <p>I've shot commercial photos for beauty clinics, game shops, and student projects.</p>
+          <p>When it comes to design, I focus on clarity, usability, and impact—thoughtful design that connects.</p>
+        </div>
+      </section>
+
+      <section class="skills-section">
+        <div class="skills-left">
+          <h2>SKILL SET</h2>
+          <div class="adobe-icons">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg" alt="Illustrator">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg" alt="Photoshop">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/40/Adobe_Premiere_Pro_CC_icon.svg" alt="Premiere Pro">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Adobe_InDesign_CC_icon.svg" alt="InDesign">
+            <img src="https://cdn.discordapp.com/attachments/1343473950222716969/1356860620078583891/solution_logo_04032024_57784323.png" alt="Custom Tool">
+          </div>
+        </div>
+        <div class="skills-right">
+          <details>
+            <summary>Creativity & Innovation</summary>
+            <p>Experienced in posters, films, and app prototyping.</p>
+          </details>
+          <details>
+            <summary>Communication</summary>
+            <p>Skilled through customer roles in salons, clinics, and more.</p>
+          </details>
+          <details>
+            <summary>Technical Expertise</summary>
+            <p>Experience with coding games, interfaces, and tools.</p>
+          </details>
+          <details>
+            <summary>Adaptability</summary>
+            <p>Quick learner with a flexible mindset and curiosity.</p>
+          </details>
+        </div>
+      </section>
+
+      <section class="divider-section">
+        <span class="divider-text">ANNORA ZHU</span>
+        <img src="wavy-line.png" alt="Wavy line" class="divider-image" />
+        <span class="divider-text">WORK EXPERIENCE</span>
+      </section>
+
+      <section class="work-experience">
+        <h2>Work Experience</h2>
+        <div class="job">
+          <h3>📍 Renison ELI Peer Helper <span class="date">June 2024 – Current</span></h3>
+          <ul>
+            <li>Educated exchange students on discussions and social advocacy</li>
+            <li>Planned community events and improved volunteer onboarding</li>
+          </ul>
+        </div>
+        <div class="job">
+          <h3>📍 Miniverse VR Game Shop <span class="date">Jan 2025 – Now</span></h3>
+          <ul>
+            <li>Captured high-quality VR photos for marketing</li>
+            <li>Designed custom event posters and materials</li>
+            <li>Troubleshot VR systems during parties for smooth gameplay</li>
+          </ul>
+        </div>
+        <div class="job">
+          <h3>📍 Marketing Specialist – Speedup Education <span class="date">Jan 2024 – Feb 2024</span></h3>
+          <ul>
+            <li>Created content for student campaigns and product launches</li>
+            <li>Analyzed feedback, led trend research, adjusted strategies</li>
+          </ul>
+        </div>
+        <div class="job">
+          <h3>📍 Social Media Specialist – LZH Beauty Clinic <span class="date">Oct 2022 – Jun 2023</span></h3>
+          <ul>
+            <li>Managed brand identity across Xiaohongshu and WeChat</li>
+            <li>Boosted engagement with targeted campaigns and visuals</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <nav>
+        <ul>
+          <li><a href="index.html">HOME</a></li>
+          <li><a href="projects.html">PROJECTS</a></li>
+          <li><a href="gallery.html">GALLERY</a></li>
+        </ul>
+      </nav>
+      <p>Hand-coded by Annora Zhu</p>
       <div class="social-icons">
-        <a href="https://www.linkedin.com/in/annora-zhu-1355352b9?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank">📘</a>
-        <a href="https://www.instagram.com/zz_annora?igsh=Z25raTdkdGxoYXlj&utm_source=qr" target="_blank">📸</a>
+        <a href="https://facebook.com" target="_blank">📘</a>
+        <a href="https://instagram.com" target="_blank">📸</a>
         <a href="mailto:y65zhu@uwaterloo.ca">✉️</a>
       </div>
-    </nav>
-  </header>
-
-  <!-- Main Content -->
-  <main>
-    <about>
-      <img src="WechatIMG935.jpg" alt="self portrait">
-      <p>ABOUT ME</p>
-      <h2>Photographer</h2>
-      <h2>Graphic Designer</h2>
-      <h2>Marketing Specialist</h2>
-    </about>
-
-    <section class="divider-section">
-      <span class="divider-text">ANNORA ZHU</span>
-      <img src="wavy-line.png" alt="Wavy line" class="divider-image" />
-      <span class="divider-text">EDUCATION</span>
-    </section>
-
-    <!-- Education -->
-    <section class="education">
-      <div class="left-content">
-        <ul>
-          <li>OSSD</li>
-          <li>Bachelor of Global Business and Digital Arts</li>
-        </ul>
-      </div>
-      <div class="right-content">
-        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/University_of_Waterloo_seal.svg/250px-University_of_Waterloo_seal.svg.png" alt="University Image">
-      </div>
-    </section>
-
-    <!-- Identity -->
-    <section class="personal-identity">
-      <div class="left-content">
-        <h2>Personal Identity</h2>
-        <p class="quote">“The best preparation for tomorrow is doing your best today.”</p>
-        <p class="author">— H. Jackson Brown, Jr.</p>
-      </div>
-      <div class="right-content">
-        <p>I do 3 things—photographing, marketing, and designing products that improve life.</p>
-        <p>I've shot commercial photos for beauty clinics, game shops, and even student projects that turned into real-world portfolios.</p>
-        <p>When it comes to design, I focus on clarity, usability, and impact—thoughtful design that connects.</p>
-      </div>
-    </section>
-
-    <!-- Skills -->
-    <section class="skills-section">
-      <div class="skills-left">
-        <h2>SKILL SET</h2>
-        <div class="adobe-icons">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Adobe_Illustrator_CC_icon.svg/1200px-Adobe_Illustrator_CC_icon.svg.png" alt="Illustrator">
-          <img src="https://images-ext-1.discordapp.net/external/6FUW51ynpeRJW0uDkVyUXU60ruOpw4F21huOvcAkLbA/https/upload.wikimedia.org/wikipedia/commons/thumb/a/af/Adobe_Photoshop_CC_icon.svg/2101px-Adobe_Photoshop_CC_icon.svg.png" alt="Photoshop">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Adobe_Premiere_Pro_CC_icon.svg/1200px-Adobe_Premiere_Pro_CC_icon.svg.png" alt="Premiere Pro">
-          <img src="https://images-ext-1.discordapp.net/external/M4ca9kHOWmcN8QxDvDrXdZ4EK6QYTYrF7XAR7udH-2I/https/upload.wikimedia.org/wikipedia/commons/thumb/4/48/Adobe_InDesign_CC_icon.svg/2101px-Adobe_InDesign_CC_icon.svg.png" alt="InDesign">
-          <img src="https://cdn.discordapp.com/attachments/1343473950222716969/1356860620078583891/solution_logo_04032024_57784323.png" alt="Custom Tool">
-        </div>
-      </div>
-      <div class="skills-right">
-        <details>
-          <summary>Creativity & Innovation</summary>
-          <p>Experienced in posters, films, and app prototyping.</p>
-        </details>
-        <details>
-          <summary>Communication</summary>
-          <p>Skilled through customer roles in salons, clinics, and more.</p>
-        </details>
-        <details>
-          <summary>Technical Expertise</summary>
-          <p>Experience with coding games, interfaces, and tools.</p>
-        </details>
-        <details>
-          <summary>Adaptability</summary>
-          <p>Quick learner with a flexible mindset and curiosity.</p>
-        </details>
-      </div>
-    </section>
-
-    <!-- Work Experience Timeline -->
-    <section class="work-experience">
-      <h2>Work Experience</h2>
-
-      <div class="job">
-        <h3>📍 Renison ELI Peer Helper <span class="date">June 2024 – Current</span></h3>
-        <ul>
-          <li>Educated exchange students on discussions and social advocacy</li>
-          <li>Planned community events and improved volunteer onboarding</li>
-        </ul>
-      </div>
-
-      <div class="job">
-        <h3>📍 Miniverse VR Game Shop <span class="date">Jan 2025 – Now</span></h3>
-        <ul>
-          <li>Captured high-quality VR photos for marketing</li>
-          <li>Designed custom event posters and materials</li>
-          <li>Troubleshot VR systems during parties for smooth gameplay</li>
-        </ul>
-      </div>
-
-      <div class="job">
-        <h3>📍 Marketing Specialist – Speedup Education <span class="date">Jan 2024 – Feb 2024</span></h3>
-        <ul>
-          <li>Created content for student campaigns and product launches</li>
-          <li>Analyzed feedback, led trend research, adjusted strategies</li>
-        </ul>
-      </div>
-
-      <div class="job">
-        <h3>📍 Social Media Specialist – LZH Beauty Clinic <span class="date">Oct 2022 – Jun 2023</span></h3>
-        <ul>
-          <li>Managed brand identity across Xiaohongshu and WeChat</li>
-          <li>Boosted engagement with targeted campaigns and visuals</li>
-        </ul>
-      </div>
-    </section>
-  </main>
-
-  <!-- Footer -->
-  <footer>
-    <nav>
-      <ul>
-        <li><a href="index.html">HOME</a></li>
-        <li><a href="projects.html">PROJECTS</a></li>
-        <li><a href="gallery.html">GALLERY</a></li>
-      </ul>
-    </nav>
-    <p>Hand-coded by Annora Zhu</p>
-    <div class="social-icons">
-      <a href="https://facebook.com" target="_blank">📘</a>
-      <a href="https://instagram.com" target="_blank">📸</a>
-      <a href="mailto:y65zhu@uwaterloo.ca">✉️</a>
-    </div>
-  </footer>
-</body>
+    </footer>
+  </body>
 </html>
