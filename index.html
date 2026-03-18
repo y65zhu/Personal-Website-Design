@@ -6,293 +6,66 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
       :root {
-        --ink: #0a0a0a;
-        --paper: #f5f0e8;
-        --cream: #ede8da;
-        --gold: #c9a84c;
-        --gold-light: #e8cc80;
-        --rust: #b85c38;
-        --sage: #6b8c7a;
-        --text-muted: #888070;
-        --border: rgba(201,168,76,0.25);
+        --ink: #0a0a0a; --paper: #f5f0e8; --cream: #ede8da; --gold: #c9a84c;
+        --gold-light: #e8cc80; --rust: #b85c38; --sage: #6b8c7a;
+        --text-muted: #888070; --border: rgba(201,168,76,0.25);
       }
-
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
       html { scroll-behavior: smooth; }
+      body { font-family: 'DM Mono', monospace; background: var(--ink); color: var(--paper); overflow-x: hidden; cursor: none; }
 
-      body {
-        font-family: 'DM Mono', monospace;
-        background: var(--ink);
-        color: var(--paper);
-        overflow-x: hidden;
-        cursor: none;
-      }
+      .cursor { position: fixed; width: 8px; height: 8px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: transform 0.1s; }
+      .cursor-ring { position: fixed; width: 36px; height: 36px; border: 1px solid var(--gold); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: all 0.2s ease; opacity: 0.6; }
 
-      /* ── CURSOR ── */
-      .cursor {
-        position: fixed;
-        width: 8px; height: 8px;
-        background: var(--gold);
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: 9999;
-        transform: translate(-50%, -50%);
-        transition: transform 0.1s;
-      }
-      .cursor-ring {
-        position: fixed;
-        width: 36px; height: 36px;
-        border: 1px solid var(--gold);
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: 9998;
-        transform: translate(-50%, -50%);
-        transition: all 0.2s ease;
-        opacity: 0.6;
-      }
+      body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9990; opacity: 0.4; }
 
-      /* ── NOISE OVERLAY ── */
-      body::before {
-        content: '';
-        position: fixed; inset: 0;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-        pointer-events: none;
-        z-index: 9990;
-        opacity: 0.4;
-      }
-
-      /* ── HEADER ── */
-      header {
-        position: fixed;
-        top: 0; left: 0; right: 0;
-        z-index: 100;
-        padding: 20px 48px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid transparent;
-        transition: border-color 0.4s, background 0.4s, backdrop-filter 0.4s;
-      }
-      header.scrolled {
-        background: rgba(10,10,10,0.85);
-        backdrop-filter: blur(12px);
-        border-color: var(--border);
-      }
-      .nav-logo {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: 1.1rem;
-        font-weight: 300;
-        letter-spacing: 0.3em;
-        color: var(--paper);
-        text-transform: uppercase;
-      }
+      /* HEADER */
+      header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid transparent; transition: border-color 0.4s, background 0.4s, backdrop-filter 0.4s; }
+      header.scrolled { background: rgba(10,10,10,0.85); backdrop-filter: blur(12px); border-color: var(--border); }
+      .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 300; letter-spacing: 0.3em; color: var(--paper); text-transform: uppercase; }
       .nav-logo span { color: var(--gold); }
       nav ul { list-style: none; display: flex; gap: 36px; }
-      nav ul li a {
-        font-size: 0.62rem;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        color: var(--text-muted);
-        text-decoration: none;
-        position: relative;
-        transition: color 0.3s;
-      }
-      nav ul li a::after {
-        content: '';
-        position: absolute;
-        bottom: -3px; left: 0;
-        width: 0; height: 1px;
-        background: var(--gold);
-        transition: width 0.3s ease;
-      }
+      nav ul li a { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; position: relative; transition: color 0.3s; }
+      nav ul li a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.3s ease; }
       nav ul li a:hover { color: var(--gold); }
       nav ul li a:hover::after { width: 100%; }
       .nav-socials { display: flex; gap: 16px; }
-      .nav-socials a {
-        font-size: 0.7rem;
-        color: var(--text-muted);
-        text-decoration: none;
-        letter-spacing: 0.1em;
-        transition: color 0.3s;
-      }
+      .nav-socials a { font-size: 0.7rem; color: var(--text-muted); text-decoration: none; letter-spacing: 0.1em; transition: color 0.3s; }
       .nav-socials a:hover { color: var(--gold); }
 
-      /* ── HERO ── */
-      .hero {
-        min-height: 100vh;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        position: relative;
-        overflow: hidden;
-      }
-      .hero-left {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        padding: 120px 60px 80px;
-        position: relative;
-        z-index: 2;
-      }
-      .hero-tag {
-        font-size: 0.62rem;
-        letter-spacing: 0.3em;
-        color: var(--gold);
-        text-transform: uppercase;
-        margin-bottom: 28px;
-        opacity: 0;
-        animation: fadeUp 0.8s ease forwards 0.3s;
-      }
-      .hero-name {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: clamp(5rem, 9vw, 10rem);
-        font-weight: 300;
-        line-height: 0.88;
-        color: var(--paper);
-        opacity: 0;
-        animation: fadeUp 1s ease forwards 0.5s;
-      }
+      /* HERO */
+      .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; position: relative; overflow: hidden; }
+      .hero-left { display: flex; flex-direction: column; justify-content: flex-end; padding: 120px 60px 80px; position: relative; z-index: 2; }
+      .hero-tag { font-size: 0.62rem; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; margin-bottom: 28px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.3s; }
+      .hero-name { font-family: 'Cormorant Garamond', serif; font-size: clamp(5rem, 9vw, 10rem); font-weight: 300; line-height: 0.88; color: var(--paper); opacity: 0; animation: fadeUp 1s ease forwards 0.5s; }
       .hero-name em { font-style: italic; color: var(--gold); }
-      .hero-descriptor {
-        margin-top: 36px;
-        font-size: 0.65rem;
-        letter-spacing: 0.2em;
-        line-height: 2;
-        color: var(--text-muted);
-        text-transform: uppercase;
-        opacity: 0;
-        animation: fadeUp 0.8s ease forwards 0.9s;
-      }
-      .hero-scroll {
-        margin-top: 60px;
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        font-size: 0.6rem;
-        letter-spacing: 0.25em;
-        color: var(--text-muted);
-        text-transform: uppercase;
-        opacity: 0;
-        animation: fadeUp 0.8s ease forwards 1.2s;
-      }
-      .hero-scroll .scroll-line {
-        width: 60px; height: 1px;
-        background: linear-gradient(90deg, var(--gold), transparent);
-      }
+      .hero-descriptor { margin-top: 36px; font-size: 0.65rem; letter-spacing: 0.2em; line-height: 2; color: var(--text-muted); text-transform: uppercase; opacity: 0; animation: fadeUp 0.8s ease forwards 0.9s; }
+      .hero-scroll { margin-top: 60px; display: flex; align-items: center; gap: 16px; font-size: 0.6rem; letter-spacing: 0.25em; color: var(--text-muted); text-transform: uppercase; opacity: 0; animation: fadeUp 0.8s ease forwards 1.2s; }
+      .hero-scroll .scroll-line { width: 60px; height: 1px; background: linear-gradient(90deg, var(--gold), transparent); }
       .hero-right { position: relative; overflow: hidden; }
-      .hero-img-wrap {
-        position: absolute;
-        inset: 80px 40px 40px 0;
-        opacity: 0;
-        animation: fadeIn 1.4s ease forwards 0.8s;
-      }
-      .hero-img-wrap img {
-        width: 100%; height: 100%;
-        object-fit: cover;
-        object-position: top;
-        filter: grayscale(20%) contrast(1.05);
-      }
-      .hero-img-wrap::after {
-        content: '';
-        position: absolute; inset: 0;
-        background: linear-gradient(to right, var(--ink) 0%, transparent 20%, transparent 80%, var(--ink) 100%),
-                    linear-gradient(to bottom, transparent 60%, var(--ink) 100%);
-      }
-      .hero-img-label {
-        position: absolute;
-        bottom: 60px; right: 60px;
-        z-index: 3;
-        font-size: 0.6rem;
-        letter-spacing: 0.2em;
-        color: var(--text-muted);
-        writing-mode: vertical-rl;
-        opacity: 0;
-        animation: fadeIn 0.8s ease forwards 1.5s;
-      }
-      .hero::before {
-        content: '';
-        position: absolute; inset: 0;
-        background-image:
-          linear-gradient(var(--border) 1px, transparent 1px),
-          linear-gradient(90deg, var(--border) 1px, transparent 1px);
-        background-size: 80px 80px;
-        z-index: 1;
-        pointer-events: none;
-      }
+      .hero-img-wrap { position: absolute; inset: 80px 40px 40px 0; opacity: 0; animation: fadeIn 1.4s ease forwards 0.8s; }
+      .hero-img-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: top; filter: grayscale(20%) contrast(1.05); }
+      .hero-img-wrap::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, var(--ink) 0%, transparent 20%, transparent 80%, var(--ink) 100%), linear-gradient(to bottom, transparent 60%, var(--ink) 100%); }
+      .hero-img-label { position: absolute; bottom: 60px; right: 60px; z-index: 3; font-size: 0.6rem; letter-spacing: 0.2em; color: var(--text-muted); writing-mode: vertical-rl; opacity: 0; animation: fadeIn 0.8s ease forwards 1.5s; }
+      .hero::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 80px 80px; z-index: 1; pointer-events: none; }
 
-      /* ── MARQUEE ── */
-      .marquee-bar {
-        border-top: 1px solid var(--border);
-        border-bottom: 1px solid var(--border);
-        background: var(--ink);
-        overflow: hidden;
-        padding: 14px 0;
-        white-space: nowrap;
-      }
-      .marquee-inner {
-        display: inline-flex;
-        animation: marquee 22s linear infinite;
-      }
-      .marquee-inner span {
-        font-size: 0.6rem;
-        letter-spacing: 0.3em;
-        text-transform: uppercase;
-        color: var(--text-muted);
-        padding: 0 40px;
-      }
+      /* MARQUEE */
+      .marquee-bar { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--ink); overflow: hidden; padding: 14px 0; white-space: nowrap; }
+      .marquee-inner { display: inline-flex; animation: marquee 22s linear infinite; }
+      .marquee-inner span { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-muted); padding: 0 40px; }
       .marquee-inner span.accent { color: var(--gold); }
 
-      /* ── TITLES SHOWCASE ── */
-      .titles-section {
-        padding: 100px 80px;
-        position: relative;
-        overflow: hidden;
-        border-bottom: 1px solid var(--border);
-      }
-      .titles-section::before {
-        content: '';
-        position: absolute; inset: 0;
-        background-image:
-          linear-gradient(var(--border) 1px, transparent 1px),
-          linear-gradient(90deg, var(--border) 1px, transparent 1px);
-        background-size: 80px 80px;
-        pointer-events: none;
-        opacity: 0.45;
-      }
-      .titles-top {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        margin-bottom: 64px;
-        position: relative;
-        z-index: 1;
-      }
-      .titles-eyebrow {
-        font-size: 0.58rem;
-        letter-spacing: 0.35em;
-        text-transform: uppercase;
-        color: var(--gold);
-        opacity: 0;
-        transform: translateY(12px);
-        transition: opacity 0.7s ease, transform 0.7s ease;
-      }
+      /* TITLES */
+      .titles-section { padding: 100px 80px; position: relative; overflow: hidden; border-bottom: 1px solid var(--border); }
+      .titles-section::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 80px 80px; pointer-events: none; opacity: 0.45; }
+      .titles-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 64px; position: relative; z-index: 1; }
+      .titles-eyebrow { font-size: 0.58rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); opacity: 0; transform: translateY(12px); transition: opacity 0.7s ease, transform 0.7s ease; }
       .titles-eyebrow.visible { opacity: 1; transform: none; }
-      .titles-count {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: 0.85rem;
-        font-style: italic;
-        color: var(--text-muted);
-        letter-spacing: 0.1em;
-        opacity: 0;
-        transform: translateY(12px);
-        transition: opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s;
-      }
+      .titles-count { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; font-style: italic; color: var(--text-muted); letter-spacing: 0.1em; opacity: 0; transform: translateY(12px); transition: opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s; }
       .titles-count.visible { opacity: 1; transform: none; }
-      .titles-list {
-        display: flex;
-        flex-direction: column;
-        position: relative;
-        z-index: 1;
-      }
+      .titles-list { display: flex; flex-direction: column; position: relative; z-index: 1; }
+
+      /* Title rows — now <a> tags */
       .title-row {
         display: flex;
         align-items: center;
@@ -301,366 +74,118 @@
         border-top: 1px solid var(--border);
         position: relative;
         overflow: hidden;
-        cursor: default;
+        text-decoration: none;
         opacity: 0;
         transform: translateY(20px);
         transition: opacity 0.65s ease, transform 0.65s ease;
       }
       .title-row:last-child { border-bottom: 1px solid var(--border); }
       .title-row.visible { opacity: 1; transform: none; }
-      .title-row::before {
-        content: '';
-        position: absolute; inset: 0;
-        background: rgba(201,168,76,0.05);
-        transform: translateX(-100%);
-        transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
-      }
+      .title-row::before { content: ''; position: absolute; inset: 0; background: rgba(201,168,76,0.05); transform: translateX(-100%); transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1); }
       .title-row:hover::before { transform: translateX(0); }
-      .title-index {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: 1rem;
-        font-weight: 300;
-        color: rgba(201,168,76,0.25);
-        min-width: 32px;
-        position: relative;
-        z-index: 1;
-        transition: color 0.3s;
-      }
-      .title-row:hover .title-index { color: var(--gold); }
-      .title-text {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: clamp(2.4rem, 4.8vw, 5rem);
-        font-weight: 300;
-        color: var(--paper);
-        line-height: 1;
-        letter-spacing: -0.01em;
-        flex: 1;
-        position: relative;
-        z-index: 1;
-        transition: color 0.35s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-      .title-text em { font-style: italic; color: var(--gold); }
-      .title-row:hover .title-text {
-        color: var(--gold-light);
-        transform: translateX(18px);
-      }
-      .title-tag {
-        font-size: 0.54rem;
-        letter-spacing: 0.22em;
-        text-transform: uppercase;
-        color: transparent;
-        border: 1px solid transparent;
-        padding: 5px 16px;
-        white-space: nowrap;
-        position: relative;
-        z-index: 1;
-        transition: color 0.35s, border-color 0.35s;
-      }
-      .title-row:hover .title-tag {
-        color: var(--gold);
-        border-color: var(--gold);
-      }
-      .title-arrow {
-        font-size: 1.1rem;
-        color: transparent;
-        position: relative;
-        z-index: 1;
-        transition: color 0.3s, transform 0.3s;
-      }
-      .title-row:hover .title-arrow {
-        color: var(--gold);
-        transform: translateX(8px);
-      }
 
-      /* ── SECTIONS ── */
+      .title-index { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 300; color: rgba(201,168,76,0.25); min-width: 32px; position: relative; z-index: 1; transition: color 0.3s; }
+      .title-row:hover .title-index { color: var(--gold); }
+
+      .title-text { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.4rem, 4.8vw, 5rem); font-weight: 300; color: var(--paper); line-height: 1; letter-spacing: -0.01em; flex: 1; position: relative; z-index: 1; transition: color 0.35s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+      .title-text em { font-style: italic; color: var(--gold); }
+      .title-row:hover .title-text { color: var(--gold-light); transform: translateX(18px); }
+
+      .title-tag { font-size: 0.54rem; letter-spacing: 0.22em; text-transform: uppercase; color: transparent; border: 1px solid transparent; padding: 5px 16px; white-space: nowrap; position: relative; z-index: 1; transition: color 0.35s, border-color 0.35s; }
+      .title-row:hover .title-tag { color: var(--gold); border-color: var(--gold); }
+
+      .title-arrow { font-size: 1.1rem; color: transparent; position: relative; z-index: 1; transition: color 0.3s, transform 0.3s; }
+      .title-row:hover .title-arrow { color: var(--gold); transform: translateX(8px); }
+
+      /* SECTIONS */
       .section { padding: 100px 80px; position: relative; }
-      .section-label {
-        font-size: 0.58rem;
-        letter-spacing: 0.3em;
-        text-transform: uppercase;
-        color: var(--gold);
-        margin-bottom: 60px;
-        display: flex;
-        align-items: center;
-        gap: 20px;
-      }
+      .section-label { font-size: 0.58rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 60px; display: flex; align-items: center; gap: 20px; }
       .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-      /* ── IDENTITY ── */
+      /* IDENTITY */
       .identity-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
-      .identity-headline {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: clamp(3rem, 5vw, 5.5rem);
-        font-weight: 300;
-        line-height: 1.05;
-        color: var(--paper);
-      }
+      .identity-headline { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 5vw, 5.5rem); font-weight: 300; line-height: 1.05; color: var(--paper); }
       .identity-headline em { font-style: italic; color: var(--gold); }
       .identity-quote { margin-top: 40px; border-left: 2px solid var(--gold); padding-left: 24px; }
-      .identity-quote p {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: 1.15rem;
-        font-style: italic;
-        font-weight: 300;
-        color: var(--paper);
-        line-height: 1.7;
-        margin-bottom: 8px;
-      }
+      .identity-quote p { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-style: italic; font-weight: 300; color: var(--paper); line-height: 1.7; margin-bottom: 8px; }
       .identity-quote cite { font-size: 0.6rem; letter-spacing: 0.2em; color: var(--text-muted); text-transform: uppercase; }
       .identity-body p { font-size: 0.8rem; line-height: 2; color: #b0a898; margin-bottom: 20px; letter-spacing: 0.03em; }
       .pillars { margin-top: 40px; display: flex; flex-direction: column; }
-      .pillar {
-        display: flex;
-        align-items: center;
-        gap: 24px;
-        padding: 20px 0;
-        border-bottom: 1px solid var(--border);
-        transition: all 0.3s;
-      }
+      .pillar { display: flex; align-items: center; gap: 24px; padding: 20px 0; border-bottom: 1px solid var(--border); transition: all 0.3s; }
       .pillar:hover { padding-left: 12px; }
       .pillar:hover .pillar-num { color: var(--gold); }
-      .pillar-num {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: 1.4rem;
-        color: var(--text-muted);
-        min-width: 36px;
-        transition: color 0.3s;
-      }
+      .pillar-num { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--text-muted); min-width: 36px; transition: color 0.3s; }
       .pillar-text { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--paper); }
 
-      /* ── EDUCATION ── */
+      /* EDUCATION */
       .education-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
       .edu-item { padding: 32px 0; border-bottom: 1px solid var(--border); }
       .edu-item:first-child { border-top: 1px solid var(--border); }
-      .edu-item h3 {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: 1.5rem;
-        font-weight: 300;
-        color: var(--paper);
-        margin-bottom: 6px;
-      }
+      .edu-item h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 300; color: var(--paper); margin-bottom: 6px; }
       .edu-item p { font-size: 0.6rem; letter-spacing: 0.2em; color: var(--text-muted); text-transform: uppercase; }
       .education-badge { display: flex; flex-direction: column; align-items: center; gap: 24px; }
-      .education-badge img {
-        width: 160px;
-        height: 160px;
-        object-fit: contain;
-        opacity: 0.92;
-        /* No filter — let the seal render in its natural colours */
-      }
-      .education-badge p {
-        font-size: 0.6rem;
-        letter-spacing: 0.25em;
-        text-transform: uppercase;
-        color: var(--text-muted);
-        text-align: center;
-        max-width: 200px;
-      }
+      .education-badge img { width: 160px; height: 160px; object-fit: contain; opacity: 0.92; }
+      .education-badge p { font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-muted); text-align: center; max-width: 200px; }
 
-      /* ── SKILLS ── */
+      /* SKILLS */
       .skills-layout { display: grid; grid-template-columns: 1fr 2fr; gap: 80px; align-items: start; }
       .adobe-stack { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
-      .adobe-item {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        padding: 12px 16px;
-        border: 1px solid var(--border);
-        transition: all 0.3s;
-      }
-      .adobe-item:hover {
-        border-color: var(--gold);
-        background: rgba(201,168,76,0.06);
-        transform: translateX(8px);
-      }
+      .adobe-item { display: flex; align-items: center; gap: 16px; padding: 12px 16px; border: 1px solid var(--border); transition: all 0.3s; }
+      .adobe-item:hover { border-color: var(--gold); background: rgba(201,168,76,0.06); transform: translateX(8px); }
       .adobe-item img { width: 28px; }
       .adobe-item span { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); }
       .accordion-item { border-bottom: 1px solid var(--border); overflow: hidden; }
-      .accordion-trigger {
-        width: 100%;
-        background: none;
-        border: none;
-        color: var(--paper);
-        cursor: none;
-        padding: 22px 0;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-family: 'Cormorant Garamond', serif;
-        font-size: 1.4rem;
-        font-weight: 300;
-        transition: color 0.3s;
-        text-align: left;
-      }
+      .accordion-trigger { width: 100%; background: none; border: none; color: var(--paper); cursor: none; padding: 22px 0; display: flex; justify-content: space-between; align-items: center; font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 300; transition: color 0.3s; text-align: left; }
       .accordion-trigger:hover { color: var(--gold); }
       .accordion-icon { font-family: 'DM Mono', monospace; font-size: 0.8rem; transition: transform 0.3s; color: var(--gold); }
       .accordion-item.open .accordion-icon { transform: rotate(45deg); }
-      .accordion-body {
-        font-size: 0.72rem;
-        color: #b0a898;
-        line-height: 1.9;
-        letter-spacing: 0.03em;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.4s ease, padding 0.4s ease;
-      }
+      .accordion-body { font-size: 0.72rem; color: #b0a898; line-height: 1.9; letter-spacing: 0.03em; max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; }
       .accordion-item.open .accordion-body { max-height: 200px; padding-bottom: 20px; }
 
-      /* ── WORK EXPERIENCE ── */
+      /* WORK EXPERIENCE */
       .experience-section { background: #080808; }
       .jobs-list { display: flex; flex-direction: column; }
-      .job-card {
-        display: grid;
-        grid-template-columns: 220px 1fr;
-        gap: 40px;
-        padding: 40px 0;
-        border-bottom: 1px solid var(--border);
-        position: relative;
-        transition: all 0.3s;
-      }
-      .job-card::before {
-        content: '';
-        position: absolute;
-        left: -80px; top: 0; bottom: 0;
-        width: 2px;
-        background: transparent;
-        transition: background 0.3s;
-      }
+      .job-card { display: grid; grid-template-columns: 220px 1fr; gap: 40px; padding: 40px 0; border-bottom: 1px solid var(--border); position: relative; transition: all 0.3s; }
+      .job-card::before { content: ''; position: absolute; left: -80px; top: 0; bottom: 0; width: 2px; background: transparent; transition: background 0.3s; }
       .job-card:hover::before { background: var(--gold); }
-      .job-meta .company {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: 1.2rem;
-        font-weight: 400;
-        color: var(--paper);
-        margin-bottom: 6px;
-        line-height: 1.3;
-      }
+      .job-meta .company { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 400; color: var(--paper); margin-bottom: 6px; line-height: 1.3; }
       .job-meta .date { font-size: 0.58rem; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; }
-      .job-meta .role-tag {
-        display: inline-block;
-        margin-top: 10px;
-        font-size: 0.56rem;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
-        color: var(--text-muted);
-        border: 1px solid var(--border);
-        padding: 3px 10px;
-      }
+      .job-meta .role-tag { display: inline-block; margin-top: 10px; font-size: 0.56rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); border: 1px solid var(--border); padding: 3px 10px; }
       .job-details ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-      .job-details ul li {
-        font-size: 0.72rem;
-        color: #b0a898;
-        line-height: 1.7;
-        letter-spacing: 0.02em;
-        padding-left: 16px;
-        position: relative;
-      }
+      .job-details ul li { font-size: 0.72rem; color: #b0a898; line-height: 1.7; letter-spacing: 0.02em; padding-left: 16px; position: relative; }
       .job-details ul li::before { content: '—'; position: absolute; left: 0; color: var(--gold); }
 
-      /* ── DESIGN JAMS ── */
+      /* DESIGN JAMS */
       .jams-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
-      .jam-card {
-        padding: 48px;
-        border: 1px solid var(--border);
-        position: relative;
-        overflow: hidden;
-        transition: all 0.4s;
-        background: #0d0d0d;
-      }
-      .jam-card::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; right: 0;
-        height: 2px;
-        background: linear-gradient(90deg, transparent, var(--gold), transparent);
-        transform: translateX(-100%);
-        transition: transform 0.6s ease;
-      }
+      .jam-card { padding: 48px; border: 1px solid var(--border); position: relative; overflow: hidden; transition: all 0.4s; background: #0d0d0d; }
+      .jam-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); transform: translateX(-100%); transition: transform 0.6s ease; }
       .jam-card:hover::before { transform: translateX(0); }
       .jam-card:hover { background: #111; }
-      .jam-num {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: 4rem;
-        font-weight: 300;
-        color: rgba(201,168,76,0.12);
-        line-height: 1;
-        margin-bottom: 16px;
-      }
+      .jam-num { font-family: 'Cormorant Garamond', serif; font-size: 4rem; font-weight: 300; color: rgba(201,168,76,0.12); line-height: 1; margin-bottom: 16px; }
       .jam-company { font-size: 0.58rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
-      .jam-title {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: 1.6rem;
-        font-weight: 300;
-        color: var(--paper);
-        margin-bottom: 20px;
-        line-height: 1.2;
-      }
+      .jam-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 300; color: var(--paper); margin-bottom: 20px; line-height: 1.2; }
       .jam-date { font-size: 0.58rem; letter-spacing: 0.15em; color: var(--text-muted); margin-bottom: 20px; }
       .jam-body { font-size: 0.7rem; color: #b0a898; line-height: 1.8; margin-bottom: 28px; }
-      .jam-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 0.6rem;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        color: var(--gold);
-        text-decoration: none;
-        border-bottom: 1px solid var(--border);
-        padding-bottom: 2px;
-        transition: border-color 0.3s;
-      }
+      .jam-link { display: inline-flex; align-items: center; gap: 8px; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 2px; transition: border-color 0.3s; }
       .jam-link:hover { border-color: var(--gold); }
 
-      /* ── FOOTER ── */
-      footer {
-        padding: 60px 80px;
-        border-top: 1px solid var(--border);
-        display: grid;
-        grid-template-columns: 1fr auto 1fr;
-        align-items: center;
-        gap: 40px;
-      }
+      /* FOOTER */
+      footer { padding: 60px 80px; border-top: 1px solid var(--border); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 40px; }
       .footer-name { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; color: var(--paper); }
       .footer-name em { font-style: italic; color: var(--gold); }
       .footer-nav ul { list-style: none; display: flex; gap: 28px; justify-content: center; }
-      .footer-nav ul li a {
-        font-size: 0.6rem;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        color: var(--text-muted);
-        text-decoration: none;
-        transition: color 0.3s;
-      }
+      .footer-nav ul li a { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
       .footer-nav ul li a:hover { color: var(--gold); }
       .footer-right { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
       .footer-socials { display: flex; gap: 16px; }
-      .footer-socials a {
-        font-size: 0.6rem;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        color: var(--text-muted);
-        text-decoration: none;
-        transition: color 0.3s;
-      }
+      .footer-socials a { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
       .footer-socials a:hover { color: var(--gold); }
       .footer-credit { font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(136,112,112,0.4); }
 
-      /* ── ANIMATIONS ── */
-      @keyframes fadeUp {
-        from { opacity: 0; transform: translateY(24px); }
-        to   { opacity: 1; transform: translateY(0); }
-      }
-      @keyframes fadeIn {
-        from { opacity: 0; }
-        to   { opacity: 1; }
-      }
-      @keyframes marquee {
-        from { transform: translateX(0); }
-        to   { transform: translateX(-50%); }
-      }
-
-      /* ── SCROLL REVEAL ── */
+      /* ANIMATIONS */
+      @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+      @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+      @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
       .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
       .reveal.visible { opacity: 1; transform: none; }
       .reveal-delay-1 { transition-delay: 0.1s; }
@@ -674,7 +199,6 @@
     <div class="cursor" id="cursor"></div>
     <div class="cursor-ring" id="cursorRing"></div>
 
-    <!-- ── HEADER ── -->
     <header id="header">
       <div class="nav-logo">Annora <span>Zhu</span></div>
       <nav>
@@ -692,10 +216,9 @@
       </div>
     </header>
 
-    <!-- ── HERO ── -->
     <section class="hero">
       <div class="hero-left">
-        <p class="hero-tag">Portfolio · 2025</p>
+        <p class="hero-tag">Portfolio · 2026</p>
         <h1 class="hero-name">An<em>nora</em><br>Zhu</h1>
         <div class="hero-descriptor">
           Photography · Marketing<br>
@@ -714,7 +237,6 @@
       </div>
     </section>
 
-    <!-- ── MARQUEE 1 ── -->
     <div class="marquee-bar">
       <div class="marquee-inner">
         <span>Annora Zhu</span><span class="accent">✦</span>
@@ -736,47 +258,57 @@
 
     <main>
 
-      <!-- ── WHAT I DO / TITLES ── -->
+      <!-- TITLES — each row is now a link -->
       <div class="titles-section">
         <div class="titles-top">
           <div class="titles-eyebrow" id="titles-eyebrow">What I Do</div>
           <div class="titles-count" id="titles-count">05 Disciplines</div>
         </div>
         <div class="titles-list" id="titles-list">
-          <div class="title-row">
+
+          <!-- 01 UI/UX → TryOn Buddy project -->
+          <a class="title-row" href="https://y65zhu.github.io/ProjectsPage/#proj-tryon">
             <span class="title-index">01</span>
             <span class="title-text">UI/<em>UX</em> Designer</span>
             <span class="title-tag">Design</span>
             <span class="title-arrow">→</span>
-          </div>
-          <div class="title-row">
+          </a>
+
+          <!-- 02 Front-End Dev → Before I Forget game -->
+          <a class="title-row" href="https://y65zhu.github.io/ProjectsPage/#proj-before-i-forget">
             <span class="title-index">02</span>
             <span class="title-text">Front-End <em>Developer</em></span>
             <span class="title-tag">Code</span>
             <span class="title-arrow">→</span>
-          </div>
-          <div class="title-row">
+          </a>
+
+          <!-- 03 Marketing → Excel Rebrand -->
+          <a class="title-row" href="https://y65zhu.github.io/ProjectsPage/#proj-excel">
             <span class="title-index">03</span>
             <span class="title-text">Marketing &amp; <em>Content</em> Creator</span>
             <span class="title-tag">Marketing</span>
             <span class="title-arrow">→</span>
-          </div>
-          <div class="title-row">
+          </a>
+
+          <!-- 04 Social Media → Excel Rebrand (social campaign) -->
+          <a class="title-row" href="https://y65zhu.github.io/ProjectsPage/#proj-excel">
             <span class="title-index">04</span>
             <span class="title-text">Social <em>Media</em> Strategy</span>
             <span class="title-tag">Strategy</span>
             <span class="title-arrow">→</span>
-          </div>
-          <div class="title-row">
+          </a>
+
+          <!-- 05 Video Editing → Antiques in Time documentary -->
+          <a class="title-row" href="https://y65zhu.github.io/ProjectsPage/#proj-antiques">
             <span class="title-index">05</span>
             <span class="title-text"><em>Video</em> Editing</span>
             <span class="title-tag">Film</span>
             <span class="title-arrow">→</span>
-          </div>
+          </a>
+
         </div>
       </div>
 
-      <!-- ── MARQUEE 2 ── -->
       <div class="marquee-bar">
         <div class="marquee-inner" style="animation-direction: reverse;">
           <span>Education</span><span class="accent">·</span>
@@ -794,7 +326,6 @@
         </div>
       </div>
 
-      <!-- ── 01 PERSONAL IDENTITY ── -->
       <section class="section">
         <div class="section-label reveal">01 — Personal Identity</div>
         <div class="identity-grid">
@@ -809,24 +340,14 @@
             <p>I do three things — photographing, marketing, and designing products that improve life.</p>
             <p>I've shot commercial photos for beauty clinics, game shops, and student projects. When it comes to design, I focus on clarity, usability, and impact — thoughtful work that genuinely connects.</p>
             <div class="pillars reveal reveal-delay-3">
-              <div class="pillar">
-                <span class="pillar-num">01</span>
-                <span class="pillar-text">Photography &amp; Visual Storytelling</span>
-              </div>
-              <div class="pillar">
-                <span class="pillar-num">02</span>
-                <span class="pillar-text">Brand &amp; Marketing Strategy</span>
-              </div>
-              <div class="pillar">
-                <span class="pillar-num">03</span>
-                <span class="pillar-text">UX &amp; Product Design</span>
-              </div>
+              <div class="pillar"><span class="pillar-num">01</span><span class="pillar-text">Photography &amp; Visual Storytelling</span></div>
+              <div class="pillar"><span class="pillar-num">02</span><span class="pillar-text">Brand &amp; Marketing Strategy</span></div>
+              <div class="pillar"><span class="pillar-num">03</span><span class="pillar-text">UX &amp; Product Design</span></div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- ── 02 EDUCATION ── -->
       <section class="section">
         <div class="section-label reveal">02 — Education</div>
         <div class="education-grid">
@@ -841,161 +362,112 @@
             </div>
           </div>
           <div class="education-badge reveal reveal-delay-3">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/University_of_Waterloo_seal.svg/250px-University_of_Waterloo_seal.svg.png"
-              alt="University of Waterloo seal"
-            >
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/University_of_Waterloo_seal.svg/250px-University_of_Waterloo_seal.svg.png" alt="University of Waterloo seal">
             <p>University of Waterloo<br>Faculty of Arts · GBDA Program</p>
           </div>
         </div>
       </section>
 
-      <!-- ── 03 SKILL SET ── -->
       <section class="section" style="background:#080808;">
         <div class="section-label reveal">03 — Skill Set</div>
         <div class="skills-layout">
           <div>
-            <p class="reveal" style="font-size:0.65rem; letter-spacing:0.1em; color:var(--text-muted); line-height:1.8; margin-bottom:28px;">
-              Tools I use to bring ideas to life across photography, design, and digital production.
-            </p>
+            <p class="reveal" style="font-size:0.65rem; letter-spacing:0.1em; color:var(--text-muted); line-height:1.8; margin-bottom:28px;">Tools I use to bring ideas to life across photography, design, and digital production.</p>
             <div class="adobe-stack">
-              <div class="adobe-item reveal reveal-delay-1">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg" alt="Illustrator">
-                <span>Adobe Illustrator</span>
-              </div>
-              <div class="adobe-item reveal reveal-delay-2">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg" alt="Photoshop">
-                <span>Adobe Photoshop</span>
-              </div>
-              <div class="adobe-item reveal reveal-delay-3">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/4/40/Adobe_Premiere_Pro_CC_icon.svg" alt="Premiere Pro">
-                <span>Adobe Premiere Pro</span>
-              </div>
-              <div class="adobe-item reveal reveal-delay-4">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Adobe_InDesign_CC_icon.svg" alt="InDesign">
-                <span>Adobe InDesign</span>
-              </div>
+              <div class="adobe-item reveal reveal-delay-1"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg" alt="Illustrator"><span>Adobe Illustrator</span></div>
+              <div class="adobe-item reveal reveal-delay-2"><img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg" alt="Photoshop"><span>Adobe Photoshop</span></div>
+              <div class="adobe-item reveal reveal-delay-3"><img src="https://upload.wikimedia.org/wikipedia/commons/4/40/Adobe_Premiere_Pro_CC_icon.svg" alt="Premiere Pro"><span>Adobe Premiere Pro</span></div>
+              <div class="adobe-item reveal reveal-delay-4"><img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Adobe_InDesign_CC_icon.svg" alt="InDesign"><span>Adobe InDesign</span></div>
             </div>
           </div>
           <div class="skills-accordion reveal reveal-delay-2">
             <div class="accordion-item">
-              <button class="accordion-trigger">
-                Creativity &amp; Innovation
-                <span class="accordion-icon">+</span>
-              </button>
+              <button class="accordion-trigger">Creativity &amp; Innovation<span class="accordion-icon">+</span></button>
               <div class="accordion-body">Experienced in posters, films, and app prototyping. I approach every creative brief by questioning assumptions and exploring unexpected directions before settling on an execution.</div>
             </div>
             <div class="accordion-item">
-              <button class="accordion-trigger">
-                Communication
-                <span class="accordion-icon">+</span>
-              </button>
+              <button class="accordion-trigger">Communication<span class="accordion-icon">+</span></button>
               <div class="accordion-body">Refined through customer-facing roles in salons, beauty clinics, and education — I translate complex ideas into clear narratives for diverse audiences.</div>
             </div>
             <div class="accordion-item">
-              <button class="accordion-trigger">
-                Technical Expertise
-                <span class="accordion-icon">+</span>
-              </button>
+              <button class="accordion-trigger">Technical Expertise<span class="accordion-icon">+</span></button>
               <div class="accordion-body">Experience coding games, interfaces, and interactive tools using HTML, CSS, Bootstrap, and the Adobe Creative Suite. Comfortable working across both design and development.</div>
             </div>
             <div class="accordion-item">
-              <button class="accordion-trigger">
-                Adaptability
-                <span class="accordion-icon">+</span>
-              </button>
+              <button class="accordion-trigger">Adaptability<span class="accordion-icon">+</span></button>
               <div class="accordion-body">Quick learner with a flexible mindset. I've moved fluidly between industries — beauty, education, gaming, and tech — bringing curiosity and commitment to each new context.</div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- ── 04 WORK EXPERIENCE ── -->
       <section class="section experience-section">
         <div class="section-label reveal">04 — Work Experience</div>
         <div class="jobs-list">
-
           <div class="job-card reveal">
             <div class="job-meta">
               <div class="company">WatSPEED<br>UWaterloo</div>
               <div class="date">Sept – Dec 2025</div>
               <div class="role-tag">Production Assistant</div>
             </div>
-            <div class="job-details">
-              <ul>
-                <li>Developed accessible online course content using HTML, CSS (Bootstrap), and the LEARN platform.</li>
-                <li>Managed project tasks and workflows using Monday.com and SharePoint.</li>
-                <li>Performed quality assurance (QA) testing and coordinated revisions with the Learning Technology Analyst.</li>
-                <li>Created and optimized visual assets using Adobe Creative Cloud.</li>
-              </ul>
-            </div>
+            <div class="job-details"><ul>
+              <li>Developed accessible online course content using HTML, CSS (Bootstrap), and the LEARN platform.</li>
+              <li>Managed project tasks and workflows using Monday.com and SharePoint.</li>
+              <li>Performed quality assurance (QA) testing and coordinated revisions with the Learning Technology Analyst.</li>
+              <li>Created and optimized visual assets using Adobe Creative Cloud.</li>
+            </ul></div>
           </div>
-
           <div class="job-card reveal">
             <div class="job-meta">
               <div class="company">Renison ELI<br>Peer Helper</div>
               <div class="date">June 2024 – Present</div>
               <div class="role-tag">Community &amp; Events</div>
             </div>
-            <div class="job-details">
-              <ul>
-                <li>Educated exchange students on discussions and social advocacy.</li>
-                <li>Planned community events and improved volunteer onboarding processes.</li>
-              </ul>
-            </div>
+            <div class="job-details"><ul>
+              <li>Educated exchange students on discussions and social advocacy.</li>
+              <li>Planned community events and improved volunteer onboarding processes.</li>
+            </ul></div>
           </div>
-
           <div class="job-card reveal">
             <div class="job-meta">
               <div class="company">Miniverse VR<br>Game Shop</div>
               <div class="date">Jan 2025 – Now</div>
               <div class="role-tag">Photography · Design</div>
             </div>
-            <div class="job-details">
-              <ul>
-                <li>Captured high-quality VR photos for marketing campaigns.</li>
-                <li>Designed custom event posters and promotional materials.</li>
-                <li>Troubleshot VR systems during live events for seamless gameplay.</li>
-              </ul>
-            </div>
+            <div class="job-details"><ul>
+              <li>Captured high-quality VR photos for marketing campaigns.</li>
+              <li>Designed custom event posters and promotional materials.</li>
+              <li>Troubleshot VR systems during live events for seamless gameplay.</li>
+            </ul></div>
           </div>
-
           <div class="job-card reveal">
             <div class="job-meta">
               <div class="company">Speedup<br>Education</div>
               <div class="date">Jan – Feb 2024</div>
               <div class="role-tag">Marketing Specialist</div>
             </div>
-            <div class="job-details">
-              <ul>
-                <li>Created content for student campaigns and product launches.</li>
-                <li>Analyzed feedback, led trend research, and adjusted campaign strategies accordingly.</li>
-              </ul>
-            </div>
+            <div class="job-details"><ul>
+              <li>Created content for student campaigns and product launches.</li>
+              <li>Analyzed feedback, led trend research, and adjusted campaign strategies accordingly.</li>
+            </ul></div>
           </div>
-
           <div class="job-card reveal">
             <div class="job-meta">
               <div class="company">LZH Beauty<br>Clinic</div>
               <div class="date">Oct 2022 – Jun 2023</div>
               <div class="role-tag">Social Media Specialist</div>
             </div>
-            <div class="job-details">
-              <ul>
-                <li>Managed brand identity across Xiaohongshu and WeChat.</li>
-                <li>Boosted engagement with targeted campaigns and custom visual content.</li>
-              </ul>
-            </div>
+            <div class="job-details"><ul>
+              <li>Managed brand identity across Xiaohongshu and WeChat.</li>
+              <li>Boosted engagement with targeted campaigns and custom visual content.</li>
+            </ul></div>
           </div>
-
         </div>
       </section>
 
-      <!-- ── 05 DESIGN JAM EXPERIENCE ── -->
       <section class="section">
         <div class="section-label reveal">05 — Design Jam Experience</div>
         <div class="jams-grid">
-
           <div class="jam-card reveal reveal-delay-1">
             <div class="jam-num">01</div>
             <div class="jam-company">Sun Life Financial</div>
@@ -1004,7 +476,6 @@
             <div class="jam-body">Prototyped a solution for improving financial literacy among Gen Z users in a fast-paced team environment. Focused on user journey clarity and accessibility in financial tools.</div>
             <a class="jam-link" href="https://docs.google.com/presentation/d/1puSx7q90X7zjOhrBxrG3QPBNalzn8F6BHgXf36QW9Lw/edit#slide=id.g3039bed1e8c_2_75" target="_blank">View Presentation →</a>
           </div>
-
           <div class="jam-card reveal reveal-delay-2">
             <div class="jam-num">02</div>
             <div class="jam-company">Rogers Communications</div>
@@ -1013,13 +484,11 @@
             <div class="jam-body">Co-led UX redesign for Rogers' fan engagement platform tied to event perks and reward gamification. Proposed a fresh points system and mobile interface aligned with real fan behavior insights.</div>
             <a class="jam-link" href="https://www.canva.com/design/DAGdNhJdjAU/ta1ctEwMo4IQwqoYt5Opvw/edit" target="_blank">View Design Proposal →</a>
           </div>
-
         </div>
       </section>
 
     </main>
 
-    <!-- ── FOOTER ── -->
     <footer>
       <div class="footer-name">Annora <em>Zhu</em></div>
       <div class="footer-nav">
@@ -1041,33 +510,25 @@
     </footer>
 
     <script>
-      // ── Cursor ──
       const cursor = document.getElementById('cursor');
       const ring   = document.getElementById('cursorRing');
       document.addEventListener('mousemove', e => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top  = e.clientY + 'px';
-        ring.style.left   = e.clientX + 'px';
-        ring.style.top    = e.clientY + 'px';
+        cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
+        ring.style.left   = e.clientX + 'px'; ring.style.top   = e.clientY + 'px';
       });
-      document.querySelectorAll('a, button, .pillar, .title-row').forEach(el => {
+      document.querySelectorAll('a, button, .pillar').forEach(el => {
         el.addEventListener('mouseenter', () => { ring.style.width='56px'; ring.style.height='56px'; ring.style.opacity='1'; });
         el.addEventListener('mouseleave', () => { ring.style.width='36px'; ring.style.height='36px'; ring.style.opacity='0.6'; });
       });
 
-      // ── Header on scroll ──
       const header = document.getElementById('header');
       window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 40));
 
-      // ── General scroll reveal ──
       const revealObs = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-          if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
-        });
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }});
       }, { threshold: 0.12 });
       document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
-      // ── Titles staggered reveal ──
       const titlesObs = new IntersectionObserver(entries => {
         entries.forEach(e => {
           if (e.isIntersecting) {
@@ -1082,10 +543,9 @@
       }, { threshold: 0.15 });
       titlesObs.observe(document.getElementById('titles-list'));
 
-      // ── Accordion ──
       document.querySelectorAll('.accordion-trigger').forEach(btn => {
         btn.addEventListener('click', () => {
-          const item   = btn.parentElement;
+          const item = btn.parentElement;
           const isOpen = item.classList.contains('open');
           document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('open'));
           if (!isOpen) item.classList.add('open');
