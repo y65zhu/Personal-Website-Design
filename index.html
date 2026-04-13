@@ -169,6 +169,37 @@
       .jam-link { display: inline-flex; align-items: center; gap: 8px; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 2px; transition: border-color 0.3s; }
       .jam-link:hover { border-color: var(--gold); }
 
+      /* FEATURED PROJECTS */
+      .featured-project { margin-bottom: 80px; padding-bottom: 80px; border-bottom: 1px solid var(--border); }
+      .featured-project:last-child { border-bottom: none; margin-bottom: 0; }
+      .fp-meta { display: flex; align-items: center; gap: 24px; margin-bottom: 16px; }
+      .fp-num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: rgba(201,168,76,0.2); line-height: 1; transition: color 0.3s; }
+      .fp-cat { font-size: 0.56rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); }
+      .fp-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 300; color: var(--paper); line-height: 1.1; margin-bottom: 16px; }
+      .fp-title em { font-style: italic; color: var(--gold); }
+      .fp-desc { font-size: 0.72rem; color: #b0a898; line-height: 2; letter-spacing: 0.02em; margin-bottom: 24px; max-width: 800px; }
+      .fp-link { display: inline-flex; align-items: center; gap: 8px; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); text-decoration: none; border: 1px solid var(--border); padding: 8px 20px; margin-bottom: 32px; display: inline-flex; transition: all 0.3s; }
+      .fp-link:hover { background: rgba(201,168,76,0.08); border-color: var(--gold); }
+
+      /* MEDIA */
+      .media-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+      .media-full { margin-top: 24px; }
+      .ratio-box { position: relative; width: 100%; background: #080808; border: 1px solid var(--border); overflow: hidden; }
+      .ratio-box.r-16-9  { padding-bottom: 56.25%; }
+      .ratio-box.r-9-16  { padding-bottom: 177.78%; }
+      .ratio-box.r-tall  { padding-bottom: 155.56%; }
+      .ratio-box.r-pdf   { padding-bottom: 130%; }
+      .ratio-box iframe, .ratio-box video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; display: block; }
+      .ratio-box video { object-fit: contain; background: #000; }
+      .img-frame { border: 1px solid var(--border); overflow: hidden; background: #080808; }
+      .img-frame img { width: 100%; display: block; object-fit: cover; }
+      .media-label { font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-top: 8px; }
+
+      /* MORE PROJECTS */
+      .more-projects { margin-top: 80px; padding-top: 60px; border-top: 1px solid var(--border); display: flex; justify-content: center; }
+      .view-all-btn { display: inline-flex; align-items: center; gap: 10px; font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); text-decoration: none; border: 1px solid var(--border); padding: 14px 32px; transition: all 0.3s; }
+      .view-all-btn:hover { border-color: var(--gold); background: rgba(201,168,76,0.08); }
+
       /* FOOTER */
       footer { padding: 60px 80px; border-top: 1px solid var(--border); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 40px; }
       .footer-name { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; color: var(--paper); }
@@ -326,20 +357,104 @@
         </div>
       </div>
 
+      <!-- FEATURED PROJECTS -->
+      <section class="section">
+        <div class="section-label reveal">Featured Work — 2022–2026</div>
+
+        <!-- 01: TryOn Buddy -->
+        <div class="featured-project reveal">
+          <div class="fp-meta">
+            <span class="fp-num">01</span>
+            <span class="fp-cat">UX Design · AI · Prototyping</span>
+          </div>
+          <h2 class="fp-title">TryOn Buddy – <em>AI Fashion App</em></h2>
+          <p class="fp-desc">An independently developed smart virtual try-on application designed to personalize the online shopping experience. Users can upload their own photos, search for specific brands, and instantly preview how styles look on them — with an AI-powered Color Analysis engine delivering compatibility scores and tailored style insights.</p>
+          <a class="fp-link" href="https://y65zhu.github.io/ProjectsPage/#proj-tryon">View Full Project →</a>
+          <div class="media-grid-2">
+            <div>
+              <div class="ratio-box r-tall">
+                <video controls autoplay muted loop playsinline>
+                  <source src="https://y65zhu.github.io/ProjectsPage/walkover.mov" type="video/mp4">
+                </video>
+              </div>
+              <div class="media-label">App Walkthrough · Video</div>
+            </div>
+            <div>
+              <div class="ratio-box r-tall">
+                <iframe src="https://embed.figma.com/proto/t6qE7RMo78vmX3G9i8gidM/TryOn-Buddy?node-id=106-2047&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&embed-host=share" allowfullscreen></iframe>
+              </div>
+              <div class="media-label">Figma Prototype · Interactive</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 02: Excel Gum Rebrand -->
+        <div class="featured-project reveal">
+          <div class="fp-meta">
+            <span class="fp-num">02</span>
+            <span class="fp-cat">Branding · Social Media · Campaign</span>
+          </div>
+          <h2 class="fp-title">Excel Gum <em>Rebrand</em></h2>
+          <p class="fp-desc">A bold rebrand of Excel Gum targeting Gen Z audiences, created in collaboration with Sofia Xu. Keeping the iconic icy-blue identity but elevating it with a sleeker, modern visual language — stronger flavor cues, higher contrast packaging, and a #FreshAF social campaign including streetwear collabs, AR filters, and Instagram challenges.</p>
+          <a class="fp-link" href="https://y65zhu.github.io/ProjectsPage/#proj-excel">View Full Project →</a>
+          <div class="media-full">
+            <div class="img-frame"><img src="https://y65zhu.github.io/ProjectsPage/mockup-set02.png" alt="Excel Gum packaging mockup"></div>
+            <div class="media-label">Packaging Mockup</div>
+          </div>
+          <div class="media-grid-2" style="margin-top:16px;">
+            <div>
+              <div class="ratio-box r-16-9">
+                <iframe src="https://www.youtube.com/embed/6c8f2D7rC6c" allowfullscreen></iframe>
+              </div>
+              <div class="media-label">Campaign Video</div>
+            </div>
+            <div class="media-grid-2" style="margin-top:0;">
+              <div>
+                <div class="ratio-box r-9-16">
+                  <iframe src="https://www.instagram.com/reel/DHCz4vQtCEI/embed" allowfullscreen></iframe>
+                </div>
+                <div class="media-label">IG Reel 01</div>
+              </div>
+              <div>
+                <div class="ratio-box r-9-16">
+                  <iframe src="https://www.instagram.com/reel/DHC2AvXNkFn/embed" allowfullscreen></iframe>
+                </div>
+                <div class="media-label">IG Reel 02</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 06: AI Certificate Brochure -->
+        <div class="featured-project reveal">
+          <div class="fp-meta">
+            <span class="fp-num">03</span>
+            <span class="fp-cat">Print Design · InDesign · WatSPEED</span>
+          </div>
+          <h2 class="fp-title">Artificial Intelligence Certificate — <em>Program Brochure</em></h2>
+          <p class="fp-desc">Designed a professional program brochure for WatSPEED's Artificial Intelligence Certificate at the University of Waterloo using Adobe InDesign. The brochure communicates the program's value proposition, course structure, learning outcomes, and key takeaways across eight pages — balancing typographic clarity with bold visual hierarchy.</p>
+          <a class="fp-link" href="./ai-certificate.pdf" target="_blank">Open PDF →</a>
+          <div class="media-full">
+            <div class="ratio-box r-pdf">
+              <iframe src="./ai-certificate.pdf" title="AI Certificate Program Brochure"></iframe>
+            </div>
+            <div class="media-label">AI Certificate Brochure · 8 Pages · Adobe InDesign · WatSPEED 2025</div>
+          </div>
+        </div>
+
+        <div class="more-projects">
+          <a class="view-all-btn" href="https://y65zhu.github.io/ProjectsPage/">View All 8 Projects →</a>
+        </div>
+      </section>
+
       <section class="section">
         <div class="section-label reveal">01 — Personal Identity</div>
         <div class="identity-grid">
           <div>
             <h2 class="identity-headline reveal reveal-delay-1">Making<br><em>things</em><br>that connect.</h2>
-            <div class="identity-quote reveal reveal-delay-2">
-              <p>"The best preparation for tomorrow is doing your best today."</p>
-              <cite>— H. Jackson Brown, Jr.</cite>
-            </div>
           </div>
-          <div class="identity-body reveal reveal-delay-2">
-            <p>I do three things — photographing, marketing, and designing products that improve life.</p>
-            <p>I've shot commercial photos for beauty clinics, game shops, and student projects. When it comes to design, I focus on clarity, usability, and impact — thoughtful work that genuinely connects.</p>
-            <div class="pillars reveal reveal-delay-3">
+          <div class="reveal reveal-delay-2">
+            <div class="pillars">
               <div class="pillar"><span class="pillar-num">01</span><span class="pillar-text">Photography &amp; Visual Storytelling</span></div>
               <div class="pillar"><span class="pillar-num">02</span><span class="pillar-text">Brand &amp; Marketing Strategy</span></div>
               <div class="pillar"><span class="pillar-num">03</span><span class="pillar-text">UX &amp; Product Design</span></div>
@@ -372,7 +487,6 @@
         <div class="section-label reveal">03 — Skill Set</div>
         <div class="skills-layout">
           <div>
-            <p class="reveal" style="font-size:0.65rem; letter-spacing:0.1em; color:var(--text-muted); line-height:1.8; margin-bottom:28px;">Tools I use to bring ideas to life across photography, design, and digital production.</p>
             <div class="adobe-stack">
               <div class="adobe-item reveal reveal-delay-1"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg" alt="Illustrator"><span>Adobe Illustrator</span></div>
               <div class="adobe-item reveal reveal-delay-2"><img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg" alt="Photoshop"><span>Adobe Photoshop</span></div>
@@ -411,9 +525,7 @@
               <div class="role-tag">Production Assistant</div>
             </div>
             <div class="job-details"><ul>
-              <li>Developed accessible online course content using HTML, CSS (Bootstrap), and the LEARN platform.</li>
-              <li>Managed project tasks and workflows using Monday.com and SharePoint.</li>
-              <li>Performed quality assurance (QA) testing and coordinated revisions with the Learning Technology Analyst.</li>
+              <li>Developed accessible online course content using HTML, CSS, and the LEARN platform.</li>
               <li>Created and optimized visual assets using Adobe Creative Cloud.</li>
             </ul></div>
           </div>
@@ -424,8 +536,7 @@
               <div class="role-tag">Community &amp; Events</div>
             </div>
             <div class="job-details"><ul>
-              <li>Educated exchange students on discussions and social advocacy.</li>
-              <li>Planned community events and improved volunteer onboarding processes.</li>
+              <li>Planned community events and improved volunteer onboarding for exchange students.</li>
             </ul></div>
           </div>
           <div class="job-card reveal">
@@ -435,9 +546,7 @@
               <div class="role-tag">Photography · Design</div>
             </div>
             <div class="job-details"><ul>
-              <li>Captured high-quality VR photos for marketing campaigns.</li>
-              <li>Designed custom event posters and promotional materials.</li>
-              <li>Troubleshot VR systems during live events for seamless gameplay.</li>
+              <li>Captured VR photos for marketing and designed event posters and promotional materials.</li>
             </ul></div>
           </div>
           <div class="job-card reveal">
@@ -447,8 +556,7 @@
               <div class="role-tag">Marketing Specialist</div>
             </div>
             <div class="job-details"><ul>
-              <li>Created content for student campaigns and product launches.</li>
-              <li>Analyzed feedback, led trend research, and adjusted campaign strategies accordingly.</li>
+              <li>Created content for student campaigns and led trend research to refine strategy.</li>
             </ul></div>
           </div>
           <div class="job-card reveal">
@@ -458,8 +566,7 @@
               <div class="role-tag">Social Media Specialist</div>
             </div>
             <div class="job-details"><ul>
-              <li>Managed brand identity across Xiaohongshu and WeChat.</li>
-              <li>Boosted engagement with targeted campaigns and custom visual content.</li>
+              <li>Managed brand identity across Xiaohongshu and WeChat, boosting engagement with targeted campaigns.</li>
             </ul></div>
           </div>
         </div>
@@ -473,7 +580,6 @@
             <div class="jam-company">Sun Life Financial</div>
             <h3 class="jam-title">Financial Fluency Challenge</h3>
             <div class="jam-date">September 12, 2024</div>
-            <div class="jam-body">Prototyped a solution for improving financial literacy among Gen Z users in a fast-paced team environment. Focused on user journey clarity and accessibility in financial tools.</div>
             <a class="jam-link" href="https://docs.google.com/presentation/d/1puSx7q90X7zjOhrBxrG3QPBNalzn8F6BHgXf36QW9Lw/edit#slide=id.g3039bed1e8c_2_75" target="_blank">View Presentation →</a>
           </div>
           <div class="jam-card reveal reveal-delay-2">
@@ -481,7 +587,6 @@
             <div class="jam-company">Rogers Communications</div>
             <h3 class="jam-title">Redesigning "Beyond the Seat" Reward System</h3>
             <div class="jam-date">January 25, 2025</div>
-            <div class="jam-body">Co-led UX redesign for Rogers' fan engagement platform tied to event perks and reward gamification. Proposed a fresh points system and mobile interface aligned with real fan behavior insights.</div>
             <a class="jam-link" href="https://www.canva.com/design/DAGdNhJdjAU/ta1ctEwMo4IQwqoYt5Opvw/edit" target="_blank">View Design Proposal →</a>
           </div>
         </div>
