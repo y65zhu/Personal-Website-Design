@@ -170,8 +170,11 @@
       .jam-link:hover { border-color: var(--gold); }
 
       /* FEATURED PROJECTS */
-      .featured-projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
-      .featured-project { padding: 28px; border: 1px solid var(--border); background: #0d0d0d; transition: background 0.3s; }
+      .featured-projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: stretch; }
+      .featured-project { padding: 28px; border: 1px solid var(--border); background: #0d0d0d; transition: background 0.3s; display: flex; flex-direction: column; }
+      /* Make the last media block grow to fill remaining card height so paired cards align at the bottom */
+      .featured-project.fp-fill > .media-full { flex: 1; display: flex; flex-direction: column; }
+      .featured-project.fp-fill > .media-full > .ratio-box { flex: 1; padding-bottom: 0; height: 0; min-height: 0; }
       .featured-project:hover { background: #111; }
       .fp-meta { display: flex; align-items: center; gap: 24px; margin-bottom: 16px; }
       .fp-num { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; color: rgba(201,168,76,0.2); line-height: 1; transition: color 0.3s; }
@@ -365,7 +368,7 @@
         <div class="featured-projects-grid">
 
         <!-- 01: Biblely -->
-        <div class="featured-project reveal">
+        <div class="featured-project fp-fill reveal">
           <div class="fp-meta">
             <span class="fp-num">01</span>
             <span class="fp-cat">UX Design · App Design · Bilingual</span>
