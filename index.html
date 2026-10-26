@@ -176,6 +176,9 @@
       .featured-project.fp-fill > .media-full { flex: 1; display: flex; flex-direction: column; }
       .featured-project.fp-fill > .media-full > .ratio-box { flex: 1; padding-bottom: 0; height: 0; min-height: 0; }
       .featured-project:hover { background: #111; }
+      /* A lead project across both columns: words left, screens right. */
+      .featured-project.fp-wide { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1.25fr; gap: 48px; align-items: center; }
+      .featured-project.fp-wide .media-full { margin-top: 0; }
       .fp-meta { display: flex; align-items: center; gap: 24px; margin-bottom: 16px; }
       .fp-num { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; color: rgba(201,168,76,0.2); line-height: 1; transition: color 0.3s; }
       .fp-cat { font-size: 0.94rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); }
@@ -184,6 +187,15 @@
       .fp-desc { font-size: 0.98rem; color: #b0a898; line-height: 2; letter-spacing: 0.02em; margin-bottom: 24px; max-width: 800px; }
       .fp-link { display: inline-flex; align-items: center; gap: 8px; font-size: 0.98rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); text-decoration: none; border: 1px solid var(--border); padding: 8px 20px; margin-bottom: 32px; display: inline-flex; transition: all 0.3s; }
       .fp-link:hover { background: rgba(201,168,76,0.08); border-color: var(--gold); }
+
+      /* Desktop prototypes, drawn at desktop size and scaled to fit, so the
+         whole screen shows at any card width instead of being cropped. */
+      .proto-scale { position: relative; width: 100%; aspect-ratio: 1280 / 800; overflow: hidden; border: 1px solid var(--border); background: #f4f4f4; }
+      .proto-scale iframe { position: absolute; top: 0; left: 0; width: 1280px; height: 800px; border: none; display: block; transform-origin: 0 0; transform: scale(var(--proto-scale, 0.5)); }
+      /* Phone screenshots, three across. */
+      .media-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+      .phone-frame { border: 1px solid var(--border); border-radius: 22px; overflow: hidden; background: #080808; }
+      .phone-frame img { width: 100%; display: block; }
 
       /* MEDIA */
       .media-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
@@ -367,10 +379,29 @@
 
         <div class="featured-projects-grid">
 
-        <!-- 01: Biblely -->
+        <!-- 01: DoFocus -->
+        <div class="featured-project fp-wide reveal">
+          <div>
+            <div class="fp-meta">
+              <span class="fp-num">01</span>
+              <span class="fp-cat">UX Design · iOS App · SwiftUI</span>
+            </div>
+            <h2 class="fp-title">DoFocus — <em>Focus Timer with a Buddy</em></h2>
+            <p class="fp-desc" style="margin-bottom:0;">An iOS focus app where a hand-drawn buddy works alongside you: pick what you’re focusing on, turn the dial, and your buddy studies, reads or types until the timer ends — then you earn stars to decorate their room. I led a UX redesign after studying Forest, Finch and Focus Friend: onboarding cut from six screens to three, breaks offered instead of auto-started, long sentences replaced with glanceable numbers, and 15 friction points from a full UX audit resolved, each verified in the iOS Simulator.</p>
+          </div>
+          <div class="media-full">
+            <div class="media-grid-3">
+              <div><div class="phone-frame"><img src="dofocus-01-home.jpg" alt="DoFocus home: the buddy's room, one-tap start and up next" loading="lazy"></div><div class="media-label">Home</div></div>
+              <div><div class="phone-frame"><img src="dofocus-02-focus.jpg" alt="DoFocus timer: presets above a rotary dial" loading="lazy"></div><div class="media-label">Set a block</div></div>
+              <div><div class="phone-frame"><img src="dofocus-03-session.jpg" alt="DoFocus mid-session: the buddy working at a laptop" loading="lazy"></div><div class="media-label">In session</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 02: Biblely -->
         <div class="featured-project fp-fill reveal">
           <div class="fp-meta">
-            <span class="fp-num">01</span>
+            <span class="fp-num">02</span>
             <span class="fp-cat">UX Design · App Design · Bilingual</span>
           </div>
           <h2 class="fp-title">Biblely — <em>Bilingual Faith Learning App</em></h2>
@@ -384,10 +415,10 @@
           </div>
         </div>
 
-        <!-- 02: Excel Gum Rebrand -->
+        <!-- 03: Excel Gum Rebrand -->
         <div class="featured-project reveal">
           <div class="fp-meta">
-            <span class="fp-num">02</span>
+            <span class="fp-num">03</span>
             <span class="fp-cat">Branding · Social Media · Campaign</span>
           </div>
           <h2 class="fp-title">Excel Gum <em>Rebrand</em></h2>
@@ -421,10 +452,10 @@
           </div>
         </div>
 
-        <!-- 03: AI Certificate Brochure -->
+        <!-- 04: AI Certificate Brochure -->
         <div class="featured-project reveal">
           <div class="fp-meta">
-            <span class="fp-num">03</span>
+            <span class="fp-num">04</span>
             <span class="fp-cat">Print Design · InDesign · WatSPEED</span>
           </div>
           <h2 class="fp-title">Artificial Intelligence Certificate — <em>Program Brochure</em></h2>
@@ -438,22 +469,18 @@
           </div>
         </div>
 
-        <!-- 04: WaterlooWorks Redesign -->
+        <!-- 05: WaterlooWorks Redesign -->
         <div class="featured-project reveal">
           <div class="fp-meta">
-            <span class="fp-num">04</span>
+            <span class="fp-num">05</span>
             <span class="fp-cat">UX Design · Interaction · Figma · Prototype</span>
           </div>
           <h2 class="fp-title">WaterlooWorks — <em>Employer Page Redesign</em></h2>
           <p class="fp-desc">A full UX redesign of the WaterlooWorks employer-facing job posting flow. The redesign introduces a guided multi-step form with transparent evaluation criteria, salary sliders, fair hiring practice prompts, and a live posting preview — streamlining the experience for employers while improving equity and clarity for student applicants.</p>
           <a class="fp-link" href="./waterlooworks.html" target="_blank">View Live Prototype →</a>
           <div class="media-full">
-            <div style="width:100%; height:560px; border:1px solid var(--border); overflow:hidden; background:#f4f4f4;">
-              <iframe src="./waterlooworks.html"
-                title="WaterlooWorks Employer Redesign Prototype"
-                scrolling="no"
-                style="width:100%; height:560px; border:none; display:block;">
-              </iframe>
+            <div class="proto-scale">
+              <iframe src="./waterlooworks.html" title="WaterlooWorks Employer Redesign Prototype" loading="lazy"></iframe>
             </div>
             <div class="media-label">WaterlooWorks · Employer Job Posting Redesign · Live Interactive Prototype</div>
           </div>
@@ -686,6 +713,12 @@
           document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('open'));
           if (!isOpen) item.classList.add('open');
         });
+      });
+      // Fit each desktop prototype to its frame: scale = frame width / 1280.
+      document.querySelectorAll('.proto-scale').forEach(function (box) {
+        new ResizeObserver(function (entries) {
+          box.style.setProperty('--proto-scale', entries[0].contentRect.width / 1280);
+        }).observe(box);
       });
     </script>
   </body>
